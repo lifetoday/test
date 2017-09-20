@@ -46,8 +46,8 @@ public class LocationController {
 	@GetMapping("/detail")
 	public String detail(Model model, @RequestParam(name = "id") Long id) {
 		Location location = this.locationService.getById(id);
-		Location parent = this.locationService.getById(location.getId());
-		List<UserLocation> users = this.userService.getUsersInLocation(location.getId());
+		Location parent = (location != null) ? this.locationService.getById(location.getId()) : null;
+		List<UserLocation> users = (location != null) ? this.userService.getUsersInLocation(location.getId()) : null;
 		model.addAttribute("location", location);
 		model.addAttribute("parent", parent);
 		model.addAttribute("users", users);

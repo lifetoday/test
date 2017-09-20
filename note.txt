@@ -19,6 +19,9 @@
   Tuy nhiên cách làm này gây chậm và dễ treo hệ thống khi lượng user tăng lên.
   + Cần viết lại code (cả frontend và backend, service, repository) theo cách dùng pagination (phải bổ sung tham số truyền lên). Mỗi lần query chỉ lấy 1 số lượng bản ghi định trước từ database, thay vì lấy toàn bộ như hiện tại.
   
+* Các vấn đề khác:
+ - Code có nhiều phần không check để validate dữ liệu, dễ gây lỗi Null pointer exception
+  
 * Các phần trên cần bổ sung thêm thư viện, cài đặt code, mất nhiều thời gian nên tôi chỉ đưa ra định hướng, không thể hiện trong việc fix bug code.
 
 * Phần code đã fix bug chủ yếu gồm các phần sau để đảm bảo project chạy được theo cách hiện tại:
