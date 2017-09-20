@@ -8,57 +8,58 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@Table(name = "location")
 public class Location {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-  @Column(name = "parent_id")
-  private Long parentId;
+	@Column(name = "parent_id")
+	private Long parentId;
 
-  @Column
-  private String name;
+	@Column
+	private String name;
 
-  @Column
-  private int area;
+	@Column
+	private int area;
 
-  @Column(name = "name_hiragana")
-  private String nameHiragana;
+	@Column(name = "name_hiragana")
+	private String nameHiragana;
 
-  @Column(name = "name_katakana")
-  private String nameKatakana;
+	@Column(name = "name_katakana")
+	private String nameKatakana;
 
-  @Column(name = "name_latin")
-  private String nameLatin;
+	@Column(name = "name_latin")
+	private String nameLatin;
 
-  @Column
-  private Float latitude;
+	@Column
+	private Float latitude;
 
-  @Column
-  private Float longitude;
+	@Column
+	private Float longitude;
 
-  protected Location() {
+	protected Location() {
 
-  }
+	}
 
-  public Location(Long parentId, String name) {
-    this.parentId = parentId;
-    this.name = name;
-  }
+	public Location(Long parentId, String name) {
+		this.parentId = parentId;
+		this.name = name;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public Long getParentId() {
-    return parentId;
-  }
+	public Long getParentId() {
+		return parentId;
+	}
 
-  public Long getId() {
-    return id;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public int getArea() {
-    return area;
-  }
+	public int getArea() {
+		return area;
+	}
 }

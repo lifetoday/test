@@ -1,13 +1,17 @@
 package com.ait.interview.services;
 
-import com.ait.interview.domain.Location;
 import java.util.List;
 
-public interface LocationService {
-  Location getById(Long id);
-  List<Location> getAll();
-  List<Location> getAllLocationByArea(int area);
-  List<Location> getListArea();
+import com.ait.interview.domain.Location;
 
-  List<Location> getListAllIgnoreRootArea();
+public interface LocationService {
+	public Location getById(Long id);
+
+	public List<Location> getAll();
+
+	public List<Location> getAllLocationByArea(int area);
+
+	public List<Location> getListArea();
+
+	public List<Location> getListAllIgnoreRootArea();
 }

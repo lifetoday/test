@@ -1,0 +1,27 @@
+* Các vấn đề chính ảnh hưởng đến performance:
+- Dữ liệu về location / user được query trực tiếp từ database và không giới hạn số lượng. 
+  Khi lượng location / user trong database lớn thì truy vấn ngày càng chậm và dễ bị treo database, hệ thống
+
+* Các giải pháp cần cân nhắc sử dụng khi triển khai một hệ thống như thế này:
+- Triển khai mysql clustering để giảm tải cho database
+- Triển khai project trên nhiều servers để phân tải load balancing (dùng apache, haproxy ...)
+- Phần /location và các service liên quan đến lấy dữ liệu location: Nếu dữ liệu về location không bị thay đổi, chỉnh sửa thường xuyên, cần áp dụng kỹ thuật caching cho các service lấy dữ liệu location để tránh query trực tiếp và lấy số lượng lớn / nhiều lần dữ liệu từ database:
+  + dùng ehcache nếu chạy project dạng standalone, 
+  + hoặc nếu project chạy cơ chế load balancing thì có thể triển khai cache sử dụng memcached, redis, terracota caching ... như 1 server / caching cluster bên ngoài ). 
+  + Ngoài ra có thể sử dụng thêm các level caching trong hibernate. 
+  + Lưu ý clear cache mỗi khi dữ liệu về location bị thay đổi.
+  
+- Phần /location/detail: Dữ liệu của user đang được query toàn bộ từ database. Lượng user này được đưa trực tiếp ra frontend, dùng thư viện jquery.dataTables.min.js để tạo bảng, chia trang, hỗ trợ sắp xếp theo cột ... Tuy nhiên cách làm này gây chậm và dễ treo hệ thống khi lượng user tăng lên.
+  + Cần viết lại code (cả frontend và backend, service, repository) theo cách dùng pagination (phải bổ sung tham số truyền lên). Mỗi lần query chỉ lấy 1 số lượng bản ghi định trước từ database, thay vì lấy toàn bộ như hiện tại.
+  
+* Các phần trên cần bổ sung thêm thư viện, cài đặt code nên tôi chỉ đưa ra định hướng, không thể hiện trong việc fix bug code.
+
+* Phần code đã fix bug chủ yếu gồm các phần sau:
+ - Bổ sung các cấu hình còn thiếu
+ - Bổ sung các annotation còn thiếu
+ - Refactor lại cho code một số phần
+ - Chỉnh sửa 1 chút câu query lấy user
+ 
+ - Trong code có 1 số phần sử dụng kỹ thuật của Java 8 nên cần chạy với Java 8.
+ - Nguyên gốc dữ liệu của database được export từ MySQL 5.7, tuy nhiên tôi dùng MySQL 5.5.55
+  

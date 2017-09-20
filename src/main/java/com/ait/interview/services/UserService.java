@@ -5,7 +5,9 @@ import com.ait.interview.domain.UserLocation;
 import java.util.List;
 
 public interface UserService {
-  List<User> getUsersByLocation(Long locationId);
-  List<UserLocation> getUsersInLocation(Long locationId);
-  User getById(Long id);
+	public List<User> getUsersByLocation(Long locationId);
+
+	public List<UserLocation> getUsersInLocation(Long locationId);
+
+	public User getById(Long id);
 }
